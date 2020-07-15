@@ -140,6 +140,28 @@
 </div>
 <div class="row center" id="color-investment">
 </div>
+
+
+<form id="myForm" style="margin: 0 20em">
+  From date: <input type="date" id="from_date"><br>
+  To date: <input type="date" id="to_date"><br><br>
+  <input type="button" onclick="getDate()" value="Get Data">
+</form>
+
+<div style="text-align: center; margin: 5em 10%">
+  <table id="predict-table">
+    <tr>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+    </tr>
+  </table> 
+</div>
+
+
 <script src="js/tf.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/materialize.min.js"></script>
@@ -152,3 +174,4 @@
 <script src="js/papaparse.min.js"></script>
 <script src="data/google.js"> </script>
 <script src="init.js"> </script>
+<script src="table.js"></script>
