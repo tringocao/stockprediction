@@ -89,7 +89,7 @@ $('#uploadcsv').change(function() {
     file = document.getElementById('uploadcsv');
     if ($(this).val().search('.csv') <= 0) {
         $(this).val('');
-        Materialize.toast('Only support CSV', 4001);
+        Materialize.toast('Only support CSV', 4000);
         return
     }
     $(this).parse({
