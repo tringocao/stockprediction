@@ -9,6 +9,10 @@ var stocks = GOOGLE['data'].map(function(el, idx) {
   return [el[0],el[1],el[3],el[2]];
 })
 
+var current_close = 0;
+var previous_close = 0;
+
+
 
 function initTable(tableID, start, end) {
 	console.log('open = ' + stocks[0][0]);
@@ -18,17 +22,15 @@ function initTable(tableID, start, end) {
 
   	// Get a reference to the table
   	let tableRef = document.getElementById(tableID);
-  	console.log('tableRef = ' + tableRef.rows.length);
 
-  	if (tableRef.rows.length > 1) {
-	  	for (var i = 0; i < tableRef.rows.length - 1; i++) {
-	  		let row = tableRef.deleteRow(-1);
-	  	}
-  	}
+    resetTable(tableID)
 
-  	if (start == end && end == 0) {
+    var total_cols = tableRef.rows[0].cells.length;
+    console.log('total_cols = ' + total_cols);
+
+  	if (start == -1 || end == -1) {
   		let row = tableRef.insertRow(-1);
-  		for (var i = 0; i < 6; i++) {
+  		for (var i = 0; i < total_cols; i++) {
   			let cell = row.insertCell(i);
 	  		let cell_value = document.createTextNode('N/A');
 	  		cell.appendChild(cell_value);
@@ -37,54 +39,28 @@ function initTable(tableID, start, end) {
   	}
   	
   	for (var j = start; j <= end; j++) {
-  		let row = tableRef.insertRow(-1);
-  		let value = 0;
 
-  		// Date
-  		let cell = row.insertCell(0);
-  		let cell_value = document.createTextNode(stock_date[j]);
-  		cell.appendChild(cell_value);
+      let diff = 0;
 
-  		// Open
-  		cell = row.insertCell(1);
+      let current_close = Math.round((stocks[j][1] + Number.EPSILON) * 100) / 100;
+      if (previous_close > 0) {
+        diff = Math.round(((current_close - previous_close) + Number.EPSILON) * 100) / 100
+      } else {
+        diff = previous_close;
+      }
+      previous_close = current_close;
 
-  		value = Math.round((stocks[j][0] + Number.EPSILON) * 100) / 100
-  		cell_value = document.createTextNode(value);
-  		cell.appendChild(cell_value);
-
-  		// High
-  		cell = row.insertCell(2);
-
-  		value = Math.round((stocks[j][3] + Number.EPSILON) * 100) / 100
-  		cell_value = document.createTextNode(value);
-
-  		cell.appendChild(cell_value);
-
-
-  		// Low
-  		cell = row.insertCell(3);
-
-  		value = Math.round((stocks[j][2] + Number.EPSILON) * 100) / 100
-  		cell_value = document.createTextNode(value);
-
-  		cell.appendChild(cell_value);
-
-
-  		// Close
-  		cell = row.insertCell(4);
-
-  		value = Math.round((stocks[j][1] + Number.EPSILON) * 100) / 100
-  		cell_value = document.createTextNode(value);
-
-  		cell.appendChild(cell_value);
-
-  		// Volume
-  		cell = row.insertCell(5);
-  		cell_value = document.createTextNode(volume[j]);
-  		cell.appendChild(cell_value);
+      var data = [
+          stock_date[j],
+          Math.round((stocks[j][0] + Number.EPSILON) * 100) / 100,
+          Math.round((stocks[j][3] + Number.EPSILON) * 100) / 100,
+          Math.round((stocks[j][2] + Number.EPSILON) * 100) / 100,
+          current_close,
+          volume[j],
+          diff
+                  ];
+      createRow(tableID, data);
   	}
-
-  	
 }
 
 
@@ -94,8 +70,8 @@ function getDate() {
 	var from_date = document.getElementById("from_date");
 	var to_date = document.getElementById("to_date");
 
-	var from_point = 0;
-	var to_point = 0;
+	var from_point = -1;
+	var to_point = -1;
 
 	for (var i = 0; i < stock_date.length; i++) {
 		if (stock_date[i] == from_date.value) {
@@ -114,4 +90,64 @@ function getDate() {
 
 	initTable('predict-table', from_point, to_point);
 
+}
+
+function resetTable(tableID) {
+  let tableRef = document.getElementById(tableID);
+
+  var total_rows = tableRef.rows.length;
+  console.log('tableRef = ' + total_rows);
+
+  if (total_rows > 1) {
+    for (var i = 0; i < total_rows - 1; i++) {
+      let row = tableRef.deleteRow(-1);
+    }
+  }
+
+  var current_close = 0;
+  var previous_close = 0;
+
+}
+
+function createRow(tableID, data) {
+  var len = data.length;
+  let tableRef = document.getElementById(tableID);
+
+  let row = tableRef.insertRow(-1);
+  for (var i = 0; i < len; i++) {
+    let cell = row.insertCell(i);
+    let cell_value = document.createTextNode(data[i]);
+    cell.appendChild(cell_value);
+
+    if (i == len - 1) {
+      if (data[i] < 0) {
+        cell.bgColor = '#FF0000';
+      } else {
+        cell.bgColor = '#00FF00';
+      }
+    }
+  }
+}
+
+
+
+function putData(date, open, high, low, close, volume) {
+  let tableRef = document.getElementById('predict-table');
+  
+  let diff = 0;
+  if (previous_close > 0) {
+    diff = Math.round(((close.value - previous_close) + Number.EPSILON) * 100) / 100
+  } else {
+    diff = previous_close;
+  }
+  previous_close = close.value;
+
+
+  var data = [date.value, open.value, high.value, low.value, close.value, volume.value, diff];
+
+
+  createRow('predict-table', data);
+  
+  let predictBtn = document.getElementById('predictBtn');
+  predictBtn.style = "display:all";
 }
