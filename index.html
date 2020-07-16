@@ -18,16 +18,7 @@
             Settings
           </div>
           <div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
-            <button id="trainbutton" class="waves-effect waves-light btn red lighten-2">Train</button>
-          </div>
-          <div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
-            <button id="suggestbutton" class="waves-effect waves-light btn blue lighten-2">Suggest</button>
-          </div>
-          <div class="file-field input-field col s12 m1 right" style="margin-top:5px; width:160px">
-            <div class="btn blue lighten-2" style="height:36px; line-height:2.5rem">
-              <span>Pick CSV</span>
-              <input id="uploadcsv" type="file">
-            </div>
+            <button id="trainbutton" class="waves-effect waves-light btn red lighten-2">Prediction</button>
           </div>
         </div>
       </div>
@@ -74,15 +65,15 @@
             Data for training
           </div>
           <div class="input-field col s12 m2">
-            <input id="initialmoney" type="datetime-local" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="Money in for simulation">
+            <input id="initialmoney" type="datetime-local" class="validate tooltipped" data-position="bottom" data-delay="50" >
             <label class="active">Start date</label>
           </div>
           <div class="input-field col s12 m2">
-            <input id="maxbuy" type="datetime-local" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="Max unit to buy">
+            <input id="maxbuy" type="datetime-local" class="validate tooltipped" data-position="bottom" data-delay="50">
             <label class="active">End date</label>
           </div>
           <div class="input-field col s12 m2">
-            <input id="maxsell" type="text" class="validate tooltipped" placeholder="Eg: AAPL" data-position="bottom" data-delay="50" data-tooltip="Max unit to sell">
+            <input id="maxsell" type="text" class="validate tooltipped" placeholder="Eg: AAPL" data-position="bottom" data-delay="50" data-tooltip="Choose your stock id">
             <label class="active">Stock Type</label>
           </div>
         </div>
@@ -92,7 +83,7 @@
 </div>
 
 
-<h6 class='header center light'>WARNING, This website may hang during training, and do not use this website to buy real stock!<br><br>Default stock is Google 2018, you can try upload any stock CSV</h6>
+<h6 class='header center light'>Default stock is Google 2018, you can try get new stock from settings.</h6>
 <div class="row" style="padding-left:10px;padding-right:10px">
   <div class="col s12 m12">
     <div id="div_output" style="height: 500px;"></div>

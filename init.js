@@ -84,18 +84,18 @@ function completeFn(results) {
 }
 
 var csv, config = buildConfig();
-$('#uploadcsv').change(function() {
-    csv = null;
-    file = document.getElementById('uploadcsv');
-    if ($(this).val().search('.csv') <= 0) {
-        $(this).val('');
-        Materialize.toast('Only support CSV', 4000);
-        return
-    }
-    $(this).parse({
-        config: config
-    })
-})
+// $('#uploadcsv').change(function() {
+    // csv = null;
+    // file = document.getElementById('uploadcsv');
+    // if ($(this).val().search('.csv') <= 0) {
+        // $(this).val('');
+        // Materialize.toast('Only support CSV', 4000);
+        // return
+    // }
+    // $(this).parse({
+        // config: config
+    // })
+// })
 
 function calculate_distribution(real,predict){
   data_plot = []
@@ -367,6 +367,7 @@ function plot_stock(){
       type: 'line',
       data: dataMA20,
       smooth: true,
+	  legendHoverLink: false,
       showSymbol: false,
       lineStyle: {
         normal: {
