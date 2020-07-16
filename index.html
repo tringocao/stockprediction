@@ -111,8 +111,54 @@
     </div>
   </div>
 </div>
+
 <div class="row center" id="color-investment">
 </div>
+
+<div style="margin: 10em 0">
+  <h5 style="text-align: center;">Get Data</h5>
+  <form id="getData" style="margin: 0 20em">
+    From date: <input type="date" id="from_date"><br>
+    To date: <input type="date" id="to_date"><br><br>
+    <input type="button" onclick="getDate()" value="Get Data">
+    <input type="button" onclick="resetTable('predict-table')" value="Reset Table">
+    <input type="button" onclick="initTable('predict-table', 0, 6)" value="Init Data Table">
+  </form>
+</div>
+
+<div style="text-align: center; margin: 5em 10%">
+  <table id="predict-table">
+    <tr>
+      <th>Date</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Close</th>
+      <th>Volume</th>
+      <th>Diff. close</th>
+    </tr>
+  </table> 
+</div>
+
+<div style="text-align: center;" >
+  <input id="predictBtn" style="display: none;" type="button" onclick="predict()" value="Predict">
+</div>
+
+<div style="margin: 10em 0">
+  <h5 style="text-align: center;">Put Data</h5>
+  <form id="getData" style="margin: 0 19em">
+    <input style="width: 10em;" type="date" id="put_date" placeholder="Date">
+    <input style="width: 8em" type="number" id="put_open" placeholder="Open">
+    <input style="width: 8em" type="number" id="put_high" placeholder="High">
+    <input style="width: 8em" type="number" id="put_low" placeholder="Low">
+    <input style="width: 8em" type="number" id="put_close" placeholder="Close">
+    <input style="width: 8em" type="number" id="put_volume" placeholder="Volume">
+    <br>
+    <input type="button" onclick="putData(put_date, put_open, put_high, put_low, put_close, put_volume)" value="Put Data">
+  </form>
+</div>
+
+
 <script src="js/tf.js"></script>
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/materialize.min.js"></script>
@@ -125,3 +171,4 @@
 <script src="js/papaparse.min.js"></script>
 <script src="data/google.js"> </script>
 <script src="init.js"> </script>
+<script src="table.js"></script>
