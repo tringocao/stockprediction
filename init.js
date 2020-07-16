@@ -401,7 +401,7 @@ $('#suggestbutton').click(function(){
   $('#sizelayer').val(32)
   $('#initialmoney').val(10000)
   $('#maxbuy').val(5)
-  $('#maxsell').val(10)
+  $('#maxsell').val('AAPL')
   $('#epoch').val(10)
   $('#history').val(4)
   $('#future').val(30)
