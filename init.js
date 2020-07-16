@@ -175,10 +175,10 @@ function calculateMA(dayCount, data) {
 }
 
 function plot_stock(){
-  // dataMA5 = calculateMA(5, stocks);
-  // dataMA10 = calculateMA(10, stocks);
-  // dataMA20 = calculateMA(20, stocks);
-  // dataMA30 = calculateMA(30, stocks);
+   dataMA5 = calculateMA(5, stocks);
+   dataMA10 = calculateMA(10, stocks);
+   dataMA20 = calculateMA(20, stocks);
+   dataMA30 = calculateMA(30, stocks);
   option = {
     animation: false,
     color: color_list,

@@ -81,7 +81,52 @@
     </li>
   </ul>
 </div>
+<div class="row" style="padding-left:10px;padding-right:10px">
+  <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header"><i class="material-icons" style="font-size:3rem">arrow_circle_up</i>
+        <div class="row" style="margin-bottom:10px;margin-top:10px">
+          <div class="col s3 m2">
+            Data Handle
+          </div>
+        </div>
+      </div>
+      <div class="collapsible-body"><span>
+	  	<h5 style="text-align: center;">Get Data</h5>
 
+			<form id="getData">
+					<div class="row">
+
+			From date: <input type="date" id="from_date"><br>
+			To date: <input type="date" id="to_date">
+			Stock type:<input type="text" id="to_stock">
+			<button class="waves-effect waves-light btn blue lighten-2" onclick="getDate()" >Get Data</button>
+			<button class="waves-effect waves-light btn blue lighten-2" onclick="resetTable('predict-table')" >Reset Table</button>
+			<button class="waves-effect waves-light btn red lighten-2" onclick="initTable('predict-table', 0, 6)" >Init Data Table</button>
+						
+			</div>
+			</form>
+
+<div >
+  <input id="predictBtn" style="display: none;" type="button" onclick="predict()" value="Predict">
+</div>
+
+  <h5 style="text-align: center;">Put Data</h5>
+  <form id="getData">
+    <input style="width: 10em;" type="date" id="put_date" placeholder="Date">
+    <input style="width: 8em" type="number" id="put_open" placeholder="Open">
+    <input style="width: 8em" type="number" id="put_high" placeholder="High">
+    <input style="width: 8em" type="number" id="put_low" placeholder="Low">
+    <input style="width: 8em" type="number" id="put_close" placeholder="Close">
+    <input style="width: 8em" type="number" id="put_volume" placeholder="Volume">
+    <br>
+    <button class="waves-effect waves-light btn blue lighten-2" onclick="putData(put_date, put_open, put_high, put_low, put_close, put_volume)">Put Data</button>
+  </form>
+        </div>
+      </span></div>
+    </li>
+  </ul>
+</div>
 
 <h6 class='header center light'>Default stock is Google 2018, you can try get new stock from settings.</h6>
 <div class="row" style="padding-left:10px;padding-right:10px">
@@ -106,16 +151,6 @@
 <div class="row center" id="color-investment">
 </div>
 
-<div style="margin: 10em 0">
-  <h5 style="text-align: center;">Get Data</h5>
-  <form id="getData" style="margin: 0 20em">
-    From date: <input type="date" id="from_date"><br>
-    To date: <input type="date" id="to_date"><br><br>
-    <input type="button" onclick="getDate()" value="Get Data">
-    <input type="button" onclick="resetTable('predict-table')" value="Reset Table">
-    <input type="button" onclick="initTable('predict-table', 0, 6)" value="Init Data Table">
-  </form>
-</div>
 
 <div style="text-align: center; margin: 5em 10%">
   <table id="predict-table">
@@ -131,23 +166,7 @@
   </table> 
 </div>
 
-<div style="text-align: center;" >
-  <input id="predictBtn" style="display: none;" type="button" onclick="predict()" value="Predict">
-</div>
 
-<div style="margin: 10em 0">
-  <h5 style="text-align: center;">Put Data</h5>
-  <form id="getData" style="margin: 0 19em">
-    <input style="width: 10em;" type="date" id="put_date" placeholder="Date">
-    <input style="width: 8em" type="number" id="put_open" placeholder="Open">
-    <input style="width: 8em" type="number" id="put_high" placeholder="High">
-    <input style="width: 8em" type="number" id="put_low" placeholder="Low">
-    <input style="width: 8em" type="number" id="put_close" placeholder="Close">
-    <input style="width: 8em" type="number" id="put_volume" placeholder="Volume">
-    <br>
-    <input type="button" onclick="putData(put_date, put_open, put_high, put_low, put_close, put_volume)" value="Put Data">
-  </form>
-</div>
 
 
 <script src="js/tf.js"></script>
