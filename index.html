@@ -71,23 +71,19 @@
         </div>
         <div class="row center">
           <div class="input-field col m2 offset-m1" style="margin-left:5.33%">
-            Buying & Selling simulation
+            Data for training
           </div>
           <div class="input-field col s12 m2">
-            <input id="initialmoney" type="number" placeholder="Eg: 10000" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="Money in for simulation">
-            <label class="active">Initial money(usd)</label>
+            <input id="initialmoney" type="datetime-local" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="Money in for simulation">
+            <label class="active">Start date</label>
           </div>
           <div class="input-field col s12 m2">
-            <input id="maxbuy" type="number" placeholder="Eg: 5" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="Max unit to buy">
-            <label class="active">Max buy(unit)</label>
+            <input id="maxbuy" type="datetime-local" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="Max unit to buy">
+            <label class="active">End date</label>
           </div>
           <div class="input-field col s12 m2">
-            <input id="maxsell" type="number" class="validate tooltipped" placeholder="Eg: 10" data-position="bottom" data-delay="50" data-tooltip="Max unit to sell">
-            <label class="active">Max sell(unit)</label>
-          </div>
-          <div class="input-field col s12 m2">
-            <input id="history" type="number" class="validate tooltipped" placeholder="Eg: 5" data-position="bottom" data-delay="50" data-tooltip="MA to compare of">
-            <label class="active">Historical rolling</label>
+            <input id="maxsell" type="text" class="validate tooltipped" placeholder="Eg: AAPL" data-position="bottom" data-delay="50" data-tooltip="Max unit to sell">
+            <label class="active">Stock Type</label>
           </div>
         </div>
       </span></div>
@@ -114,29 +110,6 @@
     <div class="row" id="log" style="height: 150px; overflow:auto;">
     </div>
   </div>
-</div>
-<div class="row" style="padding-left:10px;padding-right:10px">
-  <ul class="collapsible" data-collapsible="accordion">
-    <li>
-      <div class="collapsible-header"><i class="material-icons">archive</i>Simulation log</div>
-      <div class="collapsible-body"><span>
-        <table class="bordered highlight">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Action</th>
-              <th>Price</th>
-              <th>Investment</th>
-              <th>Balance</th>
-            </tr>
-          </thead>
-          <tbody id='table-body'>
-          </tbody>
-        </table><br>
-        <span id="log-invest"></span>
-      </span></div>
-    </li>
-  </ul>
 </div>
 <div class="row center" id="color-investment">
 </div>
