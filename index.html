@@ -19,9 +19,6 @@
           <div class="col s3 m1">
             Settings
           </div>
-          <div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
-            <button id="trainbutton" class="waves-effect waves-light btn red lighten-2">Prediction</button>
-          </div>
  <div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
             <button id="suggestbutton" class="waves-effect waves-light btn blue lighten-2">Suggest</button>
           </div>
@@ -39,55 +36,18 @@
             Neural Network settings
           </div>
           <div class="input-field col s12 m1">
-            <input id="learningrate" type="number" placeholder="Eg: 0.001" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="learning rate during training">
+            <input id="learningrate" type="number" placeholder="Eg: 0.001" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="learning rate during training"/>
             <label class="active">Learning rate</label>
           </div>
           <div class="input-field col s12 m1">
-            <input id="inputdropoutrate" type="number" placeholder="Eg: 0.9" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="dropout rate for LSTM input">
-            <label class="active">Input dropout rate</label>
-          </div>
-          <div class="input-field col s12 m1">
-            <input id="outputdropoutrate" type="number" placeholder="Eg: 0.9" class="validate tooltipped" data-position="bottom" data-delay="50" data-tooltip="dropout rate for LSTM output">
-            <label class="active">Output dropout rate</label>
-          </div>
-          <div class="input-field col s12 m1">
-            <input id="timestamp" type="number" class="validate tooltipped" placeholder="Eg: 5" data-position="bottom" data-delay="50" data-tooltip="Trends for every minibatch">
+            <input id="timestamp" type="number" class="validate tooltipped" placeholder="Eg: 5" data-position="bottom" data-delay="50" data-tooltip="Trends for every minibatch"/>
             <label class="active">Timestamp per training</label>
-          </div>
+          </div>         
           <div class="input-field col s12 m1">
-            <input id="sizelayer" type="number" class="validate tooltipped" placeholder="Eg: 64" data-position="bottom" data-delay="50" data-tooltip="LSTM size">
-            <label class="active">Size layer</label>
-          </div>
-          <div class="input-field col s12 m1">
-            <input id="epoch" type="number" class="validate tooltipped" placeholder="Eg: 10" data-position="bottom" data-delay="50" data-tooltip="Total epoch">
+            <input id="epoch" type="number" class="validate tooltipped" placeholder="Eg: 10" data-position="bottom" data-delay="50" data-tooltip="Total epoch"/>
             <label class="active">Training Iteration</label>
           </div>
-          <div class="input-field col s12 m1">
-            <input id="future" type="number" class="validate tooltipped" placeholder="Eg: 10" data-position="bottom" data-delay="50" data-tooltip="number of days forecast">
-            <label class="active">Future days to forecast</label>
-          </div>
-          <div class="input-field col s12 m1">
-            <input id="smooth" type="number" class="validate tooltipped" placeholder="Eg: 10" data-position="bottom" data-delay="50" data-tooltip="Rate anchor smoothing for trends">
-            <label class="active">Smoothing weights</label>
-          </div>
-        </div>
-        <div class="row center">
-          <div class="input-field col m2 offset-m1" style="margin-left:5.33%">
-            Data for training
-          </div>
-          <div class="input-field col s12 m2">
-            <input id="initialmoney" type="datetime-local" class="validate tooltipped" data-position="bottom" data-delay="50" >
-            <label class="active">Start date</label>
-          </div>
-          <div class="input-field col s12 m2">
-            <input id="maxbuy" type="datetime-local" class="validate tooltipped" data-position="bottom" data-delay="50">
-            <label class="active">End date</label>
-          </div>
-          <div class="input-field col s12 m2">
-            <input id="maxsell" type="text" class="validate tooltipped" placeholder="Eg: AAPL" data-position="bottom" data-delay="50" data-tooltip="Choose your stock id">
-            <label class="active">Stock Type</label>
-          </div>
-        </div>
+        </div>        
       </span></div>
     </li>
   </ul>
@@ -103,6 +63,9 @@
           <div class="col s3 m2">
             Data Handle
           </div>
+		            <div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
+            <button id="trainbutton" class="waves-effect waves-light btn red lighten-2">Fetch Data</button>
+          </div>
         </div>
       </div>
       <div class="collapsible-body">
@@ -111,12 +74,12 @@
 
     			<form id="getData">
     					<div class="row">
-          			From date: <input type="date" id="from_date"><br>
-          			To date: <input type="date" id="to_date">
-          			Stock type:<input type="text" id="to_stock">
-          			<input type="button" onclick="getDate()" value="Get Data">
-                <input type="button" onclick="resetTable('predict-table')" value="Reset Table">
-                <input type="button" onclick="initTable('predict-table', 0, 6)" value="Init Data Table">
+          			From date: <input type="date" id="from_date"/><br/>
+          			To date: <input type="date" id="to_date"/>
+          			Stock type:<input type="text" id="to_stock"/>
+          			<input type="button" onclick="getDate()" value="Get Data"/>
+                <input type="button" onclick="resetTable('predict-table')" value="Reset Table"/>
+                <input type="button" onclick="initTable('predict-table', 0, 6)" value="Init Data Table"/>
       			</div>
     			</form>
         </div>
@@ -136,20 +99,20 @@
         </div>
 
         <div style="width: fit-content;margin: auto;padding: 0 0 5em 0;">
-          <input id="predictBtn" style="display: none;" type="button" onclick="predict()" value="Predict">
+          <input id="predictBtn" style="display: none;" type="button" onclick="predict()" value="Predict"/>
         </div>
 
         <div style="margin: auto; width: fit-content;">
           <h5 style="text-align: center;">Put Data</h5>
           <form id="putData">
-            <input style="width: 10em;" type="date" id="put_date" placeholder="Date">
-            <input style="width: 8em" type="number" id="put_open" placeholder="Open">
-            <input style="width: 8em" type="number" id="put_high" placeholder="High">
-            <input style="width: 8em" type="number" id="put_low" placeholder="Low">
-            <input style="width: 8em" type="number" id="put_close" placeholder="Close">
-            <input style="width: 8em" type="number" id="put_volume" placeholder="Volume">
-            <br>
-            <input type="button" onclick="putData(put_date, put_open, put_high, put_low, put_close, put_volume)" value="Put Data">
+            <input style="width: 10em;" type="date" id="put_date" placeholder="Date"/>
+            <input style="width: 8em" type="number" id="put_open" placeholder="Open"/>
+            <input style="width: 8em" type="number" id="put_high" placeholder="High"/>
+            <input style="width: 8em" type="number" id="put_low" placeholder="Low"/>
+            <input style="width: 8em" type="number" id="put_close" placeholder="Close"/>
+            <input style="width: 8em" type="number" id="put_volume" placeholder="Volume"/>
+            <br/>
+            <input type="button" onclick="putData(put_date, put_open, put_high, put_low, put_close, put_volume)" value="Put Data"/>
           </form>
         </div>
 
@@ -201,5 +164,6 @@
 <script src="js/echarts-gl.min.js"></script>
 <script src="js/papaparse.min.js"></script>
 <script src="data/google.js"> </script>
+<script src="service.js"></script>
 <script src="init.js"> </script>
 <script src="table.js"></script>

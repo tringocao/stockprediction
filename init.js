@@ -444,49 +444,54 @@ function plot_stock() {
 
 $('#suggestbutton').click(function () {
     $('#learningrate').val(0.01)
-    $('#inputdropoutrate').val(1.0)
-    $('#outputdropoutrate').val(0.8)
     $('#timestamp').val(5)
-    $('#sizelayer').val(32)
-    $('#initialmoney').val(10000)
-    $('#maxbuy').val(5)
-    $('#maxsell').val('AAPL')
     $('#epoch').val(10)
-    $('#history').val(4)
-    $('#future').val(30)
-    $('#smooth').val(0.5)
 })
 $('#suggestbutton').click()
-$('#trainbutton').click(fetch_data())
-function fetch_data() {
+$('#uploadparam').click(function () {
+    uploadParamApi(function () {
+        alert("OK!");
+    })
+})
+
+$('#trainbutton').click(function () {
+
+	var startDate = document.getElementById("from_date").value;
+	var endDate = document.getElementById("to_date").value;
+	var stockName = document.getElementById("to_stock").value;
+
+    fetch_data(stockName, startDate, endDate);
+})
+function fetch_data(stockName, startDate, endDate) {
     $('#log').html('');
     $('#log-invest').html('');
     $('.close-first').css('display', 'block');
-    if (parseFloat($('#inputdropoutrate').val()) < 0 || parseFloat($('#inputdropoutrate').val()) > 1) {
-        Materialize.toast('input dropout must bigger than 0 and less than 1', 4000)
-        return
-    }
-    if (parseFloat($('#smooth').val()) < 0 || parseFloat($('#smooth').val()) > 1) {
-        Materialize.toast('smoothing weights must bigger than 0 and less than 1', 4000)
-        return
-    }
-    if (parseFloat($('#outputdropoutrate').val()) < 0 || parseFloat($('#outputdropoutrate').val()) > 1) {
-        Materialize.toast('output dropout must bigger than 0 and less than 1', 4000)
-        return
+
+    fetchDataApi(stockName, startDate, endDate, function (data) {
+        stocks = data.data;
+        volume = data.volume;
+        stock_date = data.date;
+        close = stocks.map(function (el, idx) {
+            return el[1];
+        })
+            plot_stock();
+        //calculate_distribution(close, predicted_val);
+    })
+}
+fetch_data("FB", "2009-01-01", getDate(new Date()));
+function getDate(day) {
+    var today = day;
+    var dd = today.getDate();
+
+    var mm = today.getMonth() + 1;
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd;
     }
 
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:5000/fetch_data?stock_name=FB&end_date=2020-01-01&start_date=2012-01-01&fbclid=IwAR3VwRxNo1hF6clRdqVJm-VPmDGPT9KyUQbSK4rXlUKREkSKGwC-HURp3MQ",
-        success: function (data) {
-            stocks = data.data;
-			volume = data.volume;
-			stock_date = data.date;
-            close = stocks.map(function (el, idx) {
-                return el[1];
-            })
-			plot_stock();
-        }
-    });
+    if (mm < 10) {
+        mm = '0' + mm;
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
 }
-fetch_data();
