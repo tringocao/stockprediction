@@ -22,14 +22,14 @@ function uploadParamApi(callback) {
     learningrate = parseFloat($('#learningrate').val());
     $.ajax({
         type: "GET",
-        url: "http://localhost:5000/upload_param",
+        url: "http://localhost:5000/upload_params",
         data: {
             timestamp: timestamp,
             epoch: epoch,
             learningrate: learningrate
         },
         success: function (data) {
-            callback();
+            callback(data);
         },
         error: function (xhr) {
             alert("Faild!");

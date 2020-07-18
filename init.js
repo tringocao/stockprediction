@@ -444,12 +444,12 @@ function plot_stock() {
 
 $('#suggestbutton').click(function () {
     $('#learningrate').val(0.01)
-    $('#timestamp').val(5)
+    $('#timestamp').val(15)
     $('#epoch').val(10)
 })
 $('#suggestbutton').click()
 $('#uploadparam').click(function () {
-    uploadParamApi(function () {
+    uploadParamApi(function (data) {
         alert("OK!");
     })
 })
