@@ -22,7 +22,7 @@
 		  		  		<div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
 				<button id="uploadparam" class="waves-effect waves-light btn red lighten-2">Upload</button>
 				</div>
- <div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
+          <div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
             <button id="suggestbutton" class="waves-effect waves-light btn blue lighten-2">Suggest</button>
           </div>
           <div class="file-field input-field col s12 m1 right" style="margin-top:5px; width:160px">
@@ -66,8 +66,8 @@
           <div class="col s3 m2">
             Data Handle
           </div>
-		        <div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
-				<button id="trainbutton" class="waves-effect waves-light btn red lighten-2">Fetch Data</button>
+		        <div class="input-field col s12 m1 right" style="margin-top:5px; width:auto">
+				      <button id="trainbutton" class="waves-effect waves-light btn red lighten-2">Fetch Data to Chart</button>
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@
     					<div class="row">
           			From date: <input type="date" id="from_date"/><br/>
           			To date: <input type="date" id="to_date"/>
-          			Stock type:<input type="text" id="to_stock"/>
+          			Stock name:<input type="text" id="to_stock"/>
           			<input type="button" onclick="getDate()" value="Get Data"/>
                 <input type="button" onclick="resetTable('predict-table')" value="Reset Table"/>
                 <input type="button" onclick="initTable('predict-table', 0, 6)" value="Init Data Table"/>
@@ -87,8 +87,33 @@
     			</form>
         </div>
 
+        <div style="margin: auto; width: fit-content;">
+          <h5 style="text-align: center;">Put Data</h5>
+          <form id="putData">
+            <!-- <input style="width: 10em;" type="date" id="put_date" placeholder="Date"/> -->
+            <input style="width: 8em" type="number" id="put_open" placeholder="Open"/>
+            <input style="width: 8em" type="number" id="put_high" placeholder="High"/>
+            <input style="width: 8em" type="number" id="put_low" placeholder="Low"/>
+            <input style="width: 8em" type="number" id="put_close" placeholder="Close"/>
+            <input style="width: 8em" type="number" id="put_volume" placeholder="Volume"/>
+            <br/>
+            <input type="button" id="putDataBtn" onclick="putData(put_open, put_high, put_low, put_close, put_volume)" value="Put Data"/>
+            <input id="predictBtn" style="display: none;" type="button" onclick="predict()" value="Predict"/>
+          </form>
+        </div>
+
+        <div id='predicted-div' style="text-align: center; margin: 5em 10%; display: none">
+          <p>Predicted value:</p>
+          <table id="predict-result-table" style="display: none">
+            <tr>
+              <th>Date</th>
+              <th>Close</th>
+            </tr>
+          </table> 
+        </div>
+
         <div style="text-align: center; margin: 5em 10%">
-          <table id="predict-table">
+          <table id="predict-table" style="display: none">
             <tr>
               <th>Date</th>
               <th>Open</th>
@@ -99,24 +124,6 @@
               <th>Diff. close</th>
             </tr>
           </table> 
-        </div>
-
-        <div style="width: fit-content;margin: auto;padding: 0 0 5em 0;">
-          <input id="predictBtn" style="display: none;" type="button" onclick="predict()" value="Predict"/>
-        </div>
-
-        <div style="margin: auto; width: fit-content;">
-          <h5 style="text-align: center;">Put Data</h5>
-          <form id="putData">
-            <input style="width: 10em;" type="date" id="put_date" placeholder="Date"/>
-            <input style="width: 8em" type="number" id="put_open" placeholder="Open"/>
-            <input style="width: 8em" type="number" id="put_high" placeholder="High"/>
-            <input style="width: 8em" type="number" id="put_low" placeholder="Low"/>
-            <input style="width: 8em" type="number" id="put_close" placeholder="Close"/>
-            <input style="width: 8em" type="number" id="put_volume" placeholder="Volume"/>
-            <br/>
-            <input type="button" onclick="putData(put_date, put_open, put_high, put_low, put_close, put_volume)" value="Put Data"/>
-          </form>
         </div>
 
       </div>

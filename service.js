@@ -11,8 +11,7 @@ function fetchDataApi(stockName, startDate, endDate, callback) {
             callback(data);
         },
         error: function (xhr) {
-            //Do Something to handle error
-            alert("Faild!");
+            alert("Failed!");
         }
     });
 }
@@ -32,7 +31,27 @@ function uploadParamApi(callback) {
             callback(data);
         },
         error: function (xhr) {
-            alert("Faild!");
+            alert("Failed!");
+        }
+    });
+}
+function predictApi(stockName, currentDate, open, close, high, low, callback) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:5000/predict",
+        data: {
+            stock_name: stockName,
+            current_date: currentDate,
+            open: open,
+            close: close,
+            high: high,
+            low: low
+        },
+        success: function (data) {
+            callback(data);
+        },
+        error: function (xhr) {
+            alert("Failed!");
         }
     });
 }
