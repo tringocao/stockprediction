@@ -459,8 +459,11 @@ $('#trainbutton').click(function () {
 	var startDate = document.getElementById("from_date").value;
 	var endDate = document.getElementById("to_date").value;
 	var stockName = document.getElementById("to_stock").value;
-
-    fetch_data(stockName, startDate, endDate);
+	if(startDate == "") {
+		fetch_data("FB", "2019-01-01", getFormatDate(new Date()));
+	} else {
+		fetch_data(stockName, startDate, endDate);
+	}
 })
 function fetch_data(stockName, startDate, endDate) {
     $('#log').html('');
@@ -478,8 +481,8 @@ function fetch_data(stockName, startDate, endDate) {
         //calculate_distribution(close, predicted_val);
     })
 }
-fetch_data("FB", "2009-01-01", getDate(new Date()));
-function getDate(day) {
+fetch_data("FB", "2019-01-01", getFormatDate(new Date()));
+function getFormatDate(day) {
     var today = day;
     var dd = today.getDate();
 
