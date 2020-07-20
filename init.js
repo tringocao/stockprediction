@@ -10,7 +10,7 @@ var stock_date = GOOGLE['date'];
 var volume = GOOGLE['volume'];
 var csv;
 var indeces = {};
-var dataMA5, dataMA10, dataMA20, dataMA30;
+var dataMA1, dataMA5, dataMA10, dataMA20, dataMA30;
 var total_investment, total_gain, stock_changes, stock_changes_percent
 
 function smoothing_line(scalars, weight) {
@@ -179,6 +179,7 @@ function calculateMA(dayCount, data) {
 }
 
 function plot_stock() {
+    dataMA1 = calculateMA(1, stocks);
     dataMA5 = calculateMA(5, stocks);
     dataMA10 = calculateMA(10, stocks);
     dataMA20 = calculateMA(20, stocks);
@@ -191,7 +192,7 @@ function plot_stock() {
         },
         legend: {
             top: 30,
-            data: ['STOCK', 'MA5', 'MA10', 'MA20', 'MA30']
+            data: ['STOCK', 'Close price', 'MA5', 'MA10', 'MA20', 'MA30']
         },
         tooltip: {
             trigger: 'axis',
@@ -340,6 +341,13 @@ function plot_stock() {
                         },
                         left: 0
                     }, {
+                        id: 'Close price',
+                        type: 'text',
+                        style: {
+                            fill: color_list[5]
+                        },
+                        left: 'center'
+                    }, { 
                         id: 'MA10',
                         type: 'text',
                         style: {
@@ -387,6 +395,17 @@ function plot_stock() {
                         color0: '#444',
                         borderColor: 'black',
                         borderColor0: '#444'
+                    }
+                }
+            }, {
+                name: 'Close price',
+                type: 'line',
+                data: dataMA1,
+                smooth: true,
+                showSymbol: false,
+                lineStyle: {
+                    normal: {
+                        width: 1
                     }
                 }
             }, {
@@ -476,10 +495,11 @@ function fetch_data(stockName, startDate, endDate) {
         stock_date = data.date;
         close = stocks.map(function (el, idx) {
             return el[1];
-        })
-            plot_stock();
+        });
+        GOOGLE = JSON.parse(JSON.stringify(data));
+        plot_stock();
         //calculate_distribution(close, predicted_val);
-    })
+    });
 }
 fetch_data("FB", "2019-01-01", getFormatDate(new Date()));
 function getFormatDate(day) {
