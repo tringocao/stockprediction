@@ -100,6 +100,7 @@ function getDate() {
 	initTable('predict-table', from_point, to_point);
 
   plot_stock();
+  			alert("OK!");
 }
 
 function resetTable(tableID) {

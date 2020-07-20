@@ -44,6 +44,7 @@ function predictApi(stockName, currentDate, open, close, high, low, callback) {
             low: low
         },
         success: function (data) {
+			alert("OK!");
             callback(data);
         },
         error: function (xhr) {
