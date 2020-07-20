@@ -28,9 +28,9 @@ function generate_investment(strings, values) {
     colors = "";
     for (var i = 0; i < strings.length; i++) {
         if (values[i] >= 0)
-            colors += "<div class='col s12 m2'><div class='card'><div class='card-content'><a class='btn-floating waves-effect waves-light green' style='width:100px;height:100px;margin-bottom:20px'><i class='material-icons' style='font-size:3rem; line-height:95px'>arrow_upward</i></a><p><h6>" + strings[i] + values[i] + "</h6></p></div></div></div>";
+            colors += "<div class='col s12 m2'><div class='card'><div class='card-content'><a class='btn-floating waves-effect waves-light red' style='width:100px;height:100px;margin-bottom:20px'><i class='material-icons' style='font-size:3rem; line-height:95px'>arrow_upward</i></a><p><h6>" + strings[i] + values[i] + "</h6></p></div></div></div>";
         else
-            colors += "<div class='col s12 m2'><div class='card'><div class='card-content'><a class='btn-floating waves-effect waves-light red' style='width:100px;height:100px;margin-bottom:20px'><i class='material-icons' style='font-size:3rem; line-height:95px'>arrow_downward</i></a><p><h6>" + strings[i] + values[i] + "</h6></p></div></div></div>";
+            colors += "<div class='col s12 m2'><div class='card'><div class='card-content'><a class='btn-floating waves-effect waves-light green' style='width:100px;height:100px;margin-bottom:20px'><i class='material-icons' style='font-size:3rem; line-height:95px'>arrow_downward</i></a><p><h6>" + strings[i] + values[i] + "</h6></p></div></div></div>";
     }
     $('#color-investment').html(colors);
 }
@@ -461,12 +461,6 @@ function plot_stock() {
     chart_stock.setOption(option, true);
 }
 
-$('#suggestbutton').click(function () {
-    $('#learningrate').val(0.01)
-    $('#timestamp').val(15)
-    $('#epoch').val(10)
-})
-$('#suggestbutton').click()
 $('#uploadparam').click(function () {
     uploadParamApi(function (data) {
         alert("OK!");
