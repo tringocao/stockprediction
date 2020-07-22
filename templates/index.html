@@ -68,7 +68,13 @@
     					<div class="row">
           			From date: <input type="date" id="from_date"/><br/>
           			To date: <input type="date" id="to_date"/>
-          			Stock name:<input type="text" id="to_stock"/>
+          			Stock name:
+						<input type="text" list="stocks_name" id="to_stock"/>
+						<datalist id="stocks_name">
+						  <option>AAPL</option>
+						  <option>GOOG</option>
+						  <option>FB</option>
+						</datalist>
           			<input type="button" onclick="getDate()" value="Get Data"/>
                 <input type="button" onclick="resetTable('predict-table')" value="Reset Table"/>
       			</div>
