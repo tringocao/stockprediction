@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 import pandas as pd
 from datetime import datetime
@@ -7,10 +7,12 @@ import time
 import os
 import pandas_datareader as web
 from sklearn.preprocessing import MinMaxScaler
-
+import jinja2
 from tensorflow.keras.models import Sequential, load_model
 
-app = Flask(__name__)
+STATIC_DIR = os.path.abspath('./static')
+TEMPLATE_DIR = os.path.abspath('./templates')
+app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 CORS(app)
 params = {
     "time_steps": 15,
@@ -20,6 +22,8 @@ SRCDIR = os.path.dirname(os.path.abspath(__file__))
 OUTPUTDIR = os.path.join(SRCDIR, 'output')
 scaler = MinMaxScaler(feature_range=(0, 1))
 index = 3 # index of predicted value, i.e: Close index here
+template_dir = os.path.dirname(__file__)
+jinja_env = jinja2.Environment(loader=jinja2.FileSystemLoader(template_dir), autoescape=True)
 
 def _fetch_data(stock_name, start_date, end_date, with_date=False):
     df = web.DataReader(stock_name, data_source='yahoo', start=start_date, end=end_date)
@@ -30,7 +34,7 @@ def _fetch_data(stock_name, start_date, end_date, with_date=False):
     else:
         data = df.filter(['High', 'Low', 'Open', 'Close', 'Volume'])
     return data
-	
+
 @app.route('/upload_params')
 def upload_params():
     params["time_steps"] = request.args.get('timestamp')
@@ -110,3 +114,8 @@ def predict():
         'date': date_list,
         'volume': [-1]*delta_t,
     }
+@app.route('/')
+def root():
+    # template = jinja_env.get_template('index.html')
+    # return template.render()
+    return render_template('index.html')

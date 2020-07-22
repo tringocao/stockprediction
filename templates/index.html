@@ -1,0 +1,164 @@
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/materialize.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <style>
+  .close-first{
+    display: none;
+  }
+  </style>
+  <title>Stock predict</title>
+</head>
+<br>
+<div class="row" style="padding-left:10px;padding-right:10px">
+  <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header"><i class="material-icons" style="font-size:3rem">settings</i>
+        <div class="row" style="margin-bottom:10px;margin-top:10px">
+          <div class="col s3 m1">
+            Settings
+          </div>
+		  		  		<div class="input-field col s12 m1 right" style="margin-top:5px; width:160px">
+				<button id="uploadparam" class="waves-effect waves-light btn red lighten-2">Upload</button>
+				</div>
+          <div class="file-field input-field col s12 m1 right" style="margin-top:5px; width:160px">
+            <div class="btn blue lighten-2" style="height:36px; line-height:2.5rem">
+              <span>Pick CSV</span>
+              <input id="uploadcsv" type="file">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="collapsible-body"><span>
+        <div class="row center">
+          <div class="input-field col m2 offset-m1" style="margin-left:5.33%">
+            Neural Network settings
+          </div>
+          <div class="input-field col s12 m1">
+            <input id="timestamp" type="number" class="validate tooltipped" placeholder="Eg: 5" data-position="bottom" data-delay="50" data-tooltip="Trends for every minibatch"/>
+            <label class="active">Timestamp per training</label>
+          </div>
+        </div>
+      </span></div>
+    </li>
+  </ul>
+</div>
+
+
+<div class="row" style="padding-left:10px;padding-right:10px">
+  <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons" style="font-size:3rem">arrow_circle_up</i>
+        <div class="row" style="margin-bottom:10px;margin-top:10px">
+          <div class="col s3 m2">
+            Data Handle
+          </div>
+		        <div class="input-field col s12 m1 right" style="margin-top:5px; width:auto">
+				      <button id="trainbutton" class="waves-effect waves-light btn red lighten-2">Fetch Data to Chart</button>
+          </div>
+        </div>
+      </div>
+      <div class="collapsible-body">
+        <div style=" max-width: 27em; margin: auto;">
+    	  	<h5 style="text-align: center;">Get Data</h5>
+
+    			<form id="getData">
+    					<div class="row">
+          			From date: <input type="date" id="from_date"/><br/>
+          			To date: <input type="date" id="to_date"/>
+          			Stock name:<input type="text" id="to_stock"/>
+          			<input type="button" onclick="getDate()" value="Get Data"/>
+                <input type="button" onclick="resetTable('predict-table')" value="Reset Table"/>
+      			</div>
+    			</form>
+        </div>
+
+        <div style="margin: auto; width: fit-content;">
+          <h5 style="text-align: center;">Put Data</h5>
+          <form id="putData">
+            <!-- <input style="width: 10em;" type="date" id="put_date" placeholder="Date"/> -->
+            <input style="width: 8em" type="number" id="put_open" placeholder="Open"/>
+            <input style="width: 8em" type="number" id="put_high" placeholder="High"/>
+            <input style="width: 8em" type="number" id="put_low" placeholder="Low"/>
+            <input style="width: 8em" type="number" id="put_close" placeholder="Close"/>
+            <input style="width: 8em" type="number" id="put_volume" placeholder="Volume"/>
+            <br/>
+            <input type="button" id="putDataBtn" onclick="putData(put_open, put_high, put_low, put_close, put_volume)" value="Put Data"/>
+            <input id="predictBtn" style="display: none;" type="button" onclick="predict()" value="Predict"/>
+          </form>
+        </div>
+
+        <div id='predicted-div' style="text-align: center; margin: 5em 10%; display: none">
+          <p>Predicted value:</p>
+          <table id="predict-result-table" style="display: none">
+            <tr>
+              <th>Date</th>
+              <th>Close</th>
+            </tr>
+          </table>
+        </div>
+
+        <div style="text-align: center; margin: 5em 10%">
+          <table id="predict-table" style="display: none">
+            <tr>
+              <th>Date</th>
+              <th>Open</th>
+              <th>High</th>
+              <th>Low</th>
+              <th>Close</th>
+              <th>Volume</th>
+              <th>Diff. close</th>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+    </li>
+  </ul>
+</div>
+
+
+
+
+<h6 class='header center light'>Default stock is Facebook in 2019 to now, you can try get new stock from settings.</h6>
+<div class="row" style="padding-left:10px;padding-right:10px">
+  <div class="col s12 m12">
+    <div id="div_output" style="height: 500px;"></div>
+  </div>
+</div>
+<br>
+<div class="row close-first" style="padding-left:10px;padding-right:10px">
+  <div class="col s12 m8">
+    <div id="div_dist" style="height: 450px;"></div>
+  </div>
+  <div class="col s12 m4">
+    <div class="row">
+      <div id="div_loss" style="height: 250px;"></div>
+    </div>
+    <div class="row" id="log" style="height: 150px; overflow:auto;">
+    </div>
+  </div>
+</div>
+
+<div class="row center" id="color-investment">
+</div>
+
+
+
+
+<script src="{{ url_for('static', filename='js/tf.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/d3.v3.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/numeric-1.2.6.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/numjs.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+<script src="{{ url_for('static', filename='js/echarts.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/echarts-gl.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/papaparse.min.js') }}"></script>
+<script src="{{ url_for('static', filename='data/google.js') }}"> </script>
+<script src="{{ url_for('static', filename='service.js') }}"></script>
+<script src="{{ url_for('static', filename='init.js') }}"> </script>
+<script src="{{ url_for('static', filename='table.js') }}"></script>
