@@ -19,7 +19,7 @@ defusedxml==0.6.0
 entrypoints==0.3
 ERPpeek==1.7.1
 Flask==1.1.2
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 gast==0.3.3
 google-api-python-client==1.7.11
 google-auth==1.6.3
